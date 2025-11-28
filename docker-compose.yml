@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  nike-frontend:
+    build: .
+    container_name: nike_website
+    ports:
+      - "2222:80" # Maps port 8080 on your host to 80 in the container
+    restart: always
