@@ -1,8 +1,10 @@
-version: '3.8'
+version: "3.8"
 services:
-  nike-frontend:
-    build: .
-    container_name: nike_website
+  nike-website:
+    image: nginx:alpine
+    container_name: nike-website
     ports:
-      - "2222:80" # Maps port 8080 on your host to 80 in the container
-    restart: always
+      - "2222:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    restart: unless-stopped
