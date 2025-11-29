@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ICock - Exclusive Cock Brand | Don't do it</title>
 
-  <!-- Main stylesheet (keep your compiled Tailwind / output.css) -->
   <link rel="stylesheet" href="/output.css">
-
-  <!-- Favicon -->
   <link rel="shortcut icon" href="/Images/icock-favicon.png" type="image/x-icon">
 
   <style>
@@ -18,6 +15,15 @@
       --accent: #f59e0b;
       --page-bg: #ffffff;
       --header-bg: #f5f5f5;
+    }
+
+    /* Christmas theme variables applied when .christmas is on html */
+    html.christmas {
+      --accent: #d62828;
+      --brand-dark: #0b3a2e;
+      --header-bg: linear-gradient(90deg,#fff6f6,#f7fff7);
+      --page-bg: #fffdf8;
+      --muted: #4b5563;
     }
 
     /* Basic layout & typography */
@@ -30,7 +36,7 @@
     }
     a{color:inherit}
     .container{max-width:1200px;margin:0 auto;padding:20px;}
-    header{background:var(--header-bg);padding:10px 0;border-bottom:1px solid #e6e6e6;transition:background-color 240ms ease}
+    header{background:var(--header-bg);padding:10px 0;border-bottom:1px solid #e6e6e6;transition:background-color 240ms ease;position:relative}
     .brand{display:flex;align-items:center;gap:12px}
     .brand img{height:44px;width:auto}
     .brand h1{font-size:20px;margin:0;font-weight:700}
@@ -45,7 +51,7 @@
     .swatch.active{outline:3px solid rgba(0,0,0,0.12);transform:scale(1.05)}
     .swatch:focus{outline:3px solid rgba(0,0,0,0.18);transform:scale(1.03)}
     .price-row{display:flex;gap:12px;margin-top:14px;align-items:center}
-    .price-btn{padding:10px 16px;border-radius:9999px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:#f3f4f6}
+    .price-btn{padding:10px 16px;border-radius:9999px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:#f3f4f6;position:relative;overflow:visible}
     .price-btn.selected{background:var(--accent);color:#000;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
     .cta{display:flex;gap:12px;align-items:center;margin-top:18px}
     .btn-primary{background:var(--brand-dark);color:#fff;padding:10px 18px;border-radius:9999px;border:none;cursor:pointer;transition:background-color 180ms ease}
@@ -62,23 +68,116 @@
     .small{font-size:13px;color:var(--muted)}
     .hidden{display:none}
 
+    /* christmas decorations */
+    .header-decor {
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      height:56px;
+      pointer-events:none;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      z-index:5;
+    }
+    .garland {
+      width:100%;
+      max-width:1200px;
+      height:56px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      padding-top:6px;
+      pointer-events:none;
+    }
+    .light {
+      width:10px;height:10px;border-radius:50%;
+      box-shadow:0 0 8px rgba(0,0,0,0.12);
+      opacity:0.95;
+      transform:translateY(0);
+      transition:transform 220ms ease;
+    }
+    .light.red{background:#d62828; box-shadow:0 0 8px rgba(214,40,40,0.6)}
+    .light.green{background:#2a9d8f; box-shadow:0 0 8px rgba(42,157,143,0.6)}
+    .light.yellow{background:#f4c430; box-shadow:0 0 8px rgba(244,196,48,0.6)}
+    .light.blue{background:#2b6cb0; box-shadow:0 0 8px rgba(43,108,176,0.6)}
+    html.christmas .light {pointer-events:none; opacity:1}
+
+    /* small badge for toggle */
+    .theme-toggle {
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .theme-toggle button {
+      background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:9999px;cursor:pointer;
+    }
+    .theme-toggle button[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:transparent; }
+
+    /* snowfall canvas sits above page but below modals */
+    #snow-canvas {
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:800;
+      display:none;
+    }
+
+    /* santa hat */
+    .santa-hat {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width:36px;
+      height:36px;
+      transform-origin: center;
+      transition: transform 220ms ease, opacity 220ms ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .price-btn.selected .santa-hat { opacity: 1; transform: translateY(0) rotate(-12deg); }
+    .santa-hat svg { width:100%; height:100%; display:block; }
+
+    /* music controls */
+    #music-toggle { background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:9999px;cursor:pointer; }
+    #music-toggle[aria-pressed="true"] { background:var(--accent); color:#000; border-color:transparent; }
+
     /* responsive */
     @media(max-width:900px){
       .hero{flex-direction:column}
       .product-image{height:320px}
+      .garland{padding-left:12px;padding-right:12px}
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="container brand">
+    <div class="header-decor" aria-hidden="true">
+      <div class="garland" id="garland" aria-hidden="true"></div>
+    </div>
+
+    <div class="container brand" style="position:relative;z-index:6">
       <img src="/Images/icock-logo-wide.png" alt="ICock logo">
       <div>
         <h1>ICock - Exclusive Cock Brand</h1>
         <div class="slogan">Don't do it</div>
       </div>
+
+      <div class="theme-toggle" style="margin-left:16px">
+        <label class="small" style="margin-right:6px">Festive</label>
+        <button id="christmas-toggle" aria-pressed="false" title="Toggle Christmas theme">🎄</button>
+
+        <button id="music-toggle" aria-pressed="false" title="Play holiday music" style="margin-left:10px">🎶</button>
+        <input id="music-volume" type="range" min="0" max="1" step="0.01" value="0.45" aria-label="Music volume" style="width:90px;margin-left:8px">
+      </div>
     </div>
   </header>
+
+  <canvas id="snow-canvas" aria-hidden="true"></canvas>
 
   <main class="container" role="main">
     <section class="hero" aria-labelledby="hero-title">
@@ -117,8 +216,31 @@
           <div class="price-row" aria-label="Pricing options" style="margin-top:14px">
             <div class="small">Choose option</div>
             <div style="display:flex;gap:8px;margin-left:8px">
-              <button type="button" class="price-btn" data-tier="normal" aria-pressed="false">Normal — <strong>19k</strong></button>
-              <button type="button" class="price-btn" data-tier="premium" aria-pressed="false">Premium — <strong>25k</strong></button>
+              <button type="button" class="price-btn" data-tier="normal" aria-pressed="false">
+                Normal — <strong>19k</strong>
+                <span class="santa-hat" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <g fill="none" fill-rule="evenodd">
+                      <path d="M6 34c0 0 6-18 26-18s26 18 26 18" fill="#d62828"/>
+                      <path d="M4 38c0 0 6-6 28-6s28 6 28 6v6c0 6-6 10-28 10S6 50 6 44v-6z" fill="#fff"/>
+                      <circle cx="52" cy="28" r="4" fill="#fff"/>
+                    </g>
+                  </svg>
+                </span>
+              </button>
+
+              <button type="button" class="price-btn" data-tier="premium" aria-pressed="false">
+                Premium — <strong>25k</strong>
+                <span class="santa-hat" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <g fill="none" fill-rule="evenodd">
+                      <path d="M6 34c0 0 6-18 26-18s26 18 26 18" fill="#d62828"/>
+                      <path d="M4 38c0 0 6-6 28-6s28 6 28 6v6c0 6-6 10-28 10S6 50 6 44v-6z" fill="#fff"/>
+                      <circle cx="52" cy="28" r="4" fill="#fff"/>
+                    </g>
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
 
@@ -183,7 +305,6 @@
     </section>
   </main>
 
-  <!-- Modal: order form -->
   <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document" aria-labelledby="modal-title">
       <h2 id="modal-title" style="margin-top:0">Đặt hàng</h2>
@@ -274,11 +395,13 @@
     </div>
   </footer>
 
+  <audio id="holiday-audio" loop preload="auto" aria-hidden="true"></audio>
+
   <script>
     // --- configuration ---
-    // If you have a Formspree (or similar) endpoint, paste it here:
-    // const FORM_ENDPOINT = 'https://formspree.io/f/your-id';
     const FORM_ENDPOINT = 'https://formspree.io/f/xdkrwkoq'; // leave empty to use mailto fallback
+    const MUSIC_SRC = '/hello.mp3'; // paste a royalty-free MP3 URL or local path here if you have one
+
     // --- color/image mapping and theme palette ---
     const colorToFile = {
       'tim': 'icock-tim.png',
@@ -316,29 +439,33 @@
     const buyerEmail = document.getElementById('buyer-email');
     const formStatus = document.getElementById('form-status');
 
+    const christmasToggle = document.getElementById('christmas-toggle');
+    const snowCanvas = document.getElementById('snow-canvas');
+    const garlandEl = document.getElementById('garland');
+
+    const audio = document.getElementById('holiday-audio');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicVolume = document.getElementById('music-volume');
+
     // --- helpers ---
     function applyColor(colorKey) {
       selectedColor = colorKey || 'tim';
-      // swap image
       const file = colorToFile[selectedColor] || colorToFile['tim'];
       imageEl.src = '/Images/' + file;
       imageEl.alt = 'iCock slipper — ' + selectedColor;
 
-      // update theme variables
       const hex = colorToHex[selectedColor] || colorToHex['tim'];
       root.style.setProperty('--accent', hex.accent);
       root.style.setProperty('--brand-dark', hex.brand);
       root.style.setProperty('--header-bg', hex.header);
       root.style.setProperty('--page-bg', hex.page);
 
-      // update swatch UI
       swatches.forEach(s => {
         const active = s.dataset.color === selectedColor;
         s.classList.toggle('active', active);
         s.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
 
-      // sync modal select if open
       if (formColor) formColor.value = selectedColor;
     }
 
@@ -349,6 +476,8 @@
         const active = p.dataset.tier === selectedTier;
         p.classList.toggle('selected', active);
         p.setAttribute('aria-pressed', active ? 'true' : 'false');
+        if (active) p.setAttribute('aria-label', `${p.textContent.trim()} selected`);
+        else p.removeAttribute('aria-label');
       });
       if (formTier) formTier.value = selectedTier;
     }
@@ -401,7 +530,7 @@
       if (!email) {
         formStatus.style.display = 'block';
         formStatus.style.color = 'red';
-        formStatus.textContent = 'Please enter a valid email.';
+        formStatus.textContent = 'Vui lòng dùng đúng email';
         buyerEmail.focus();
         return;
       }
@@ -411,7 +540,6 @@
         product, color, tier, price, buyer_email: email, notes, timestamp: new Date().toISOString()
       };
 
-      // If FORM_ENDPOINT is set, POST JSON to it (Formspree or similar)
       if (FORM_ENDPOINT && FORM_ENDPOINT.trim() !== '') {
         try {
           formStatus.style.display = 'block';
@@ -424,7 +552,7 @@
           });
           if (res.ok) {
             formStatus.style.color = 'green';
-            formStatus.textContent = 'Order sent. We will contact you soon.';
+            formStatus.textContent = 'Đã gửi đơn, check mail cho thông tin về đơn hàng';
             setTimeout(closeModal, 1400);
           } else {
             const text = await res.text().catch(()=>res.statusText);
@@ -439,7 +567,6 @@
         return;
       }
 
-      // Fallback: open user's mail client with prefilled message (user must send)
       const subject = payload._subject;
       const bodyLines = [
         `Product: ${product}`,
@@ -459,6 +586,222 @@
 
     // set year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- Christmas toggle and decorations ---
+    function buildGarlandLights(count = 28) {
+      garlandEl.innerHTML = '';
+      const colors = ['red','green','yellow','blue'];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'light ' + colors[i % colors.length];
+        el.style.marginLeft = (i === 0 ? '0' : '6px');
+        el.style.transform = `translateY(${Math.sin(i) * 2}px)`;
+        garlandEl.appendChild(el);
+      }
+    }
+    buildGarlandLights();
+
+    function enableChristmas(enable) {
+      if (enable) {
+        document.documentElement.classList.add('christmas');
+        christmasToggle.setAttribute('aria-pressed','true');
+        snowCanvas.style.display = 'block';
+        startSnow();
+      } else {
+        document.documentElement.classList.remove('christmas');
+        christmasToggle.setAttribute('aria-pressed','false');
+        snowCanvas.style.display = 'none';
+        stopSnow();
+        stopMusicIfPlaying();
+      }
+    }
+
+    christmasToggle.addEventListener('click', () => {
+      const pressed = christmasToggle.getAttribute('aria-pressed') === 'true';
+      enableChristmas(!pressed);
+    });
+
+    christmasToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); christmasToggle.click(); }
+    });
+
+    // --- Snowfall implementation using canvas ---
+    (function setupSnow() {
+      const ctx = snowCanvas.getContext && snowCanvas.getContext('2d');
+      if (!ctx) return;
+
+      let flakes = [];
+      let width = 0;
+      let height = 0;
+      const maxFlakes = 160;
+      let animationId = null;
+
+      function resize() {
+        width = snowCanvas.width = window.innerWidth;
+        height = snowCanvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function createFlake() {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * -height,
+          r: Math.random() * 3 + 1,
+          d: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() * 0.6) - 0.3,
+          vy: Math.random() * 1 + 0.3,
+          opacity: Math.random() * 0.8 + 0.2
+        };
+      }
+
+      function initFlakes() {
+        flakes = [];
+        for (let i = 0; i < maxFlakes; i++) flakes.push(createFlake());
+      }
+      initFlakes();
+
+      function update() {
+        ctx.clearRect(0,0,width,height);
+        ctx.fillStyle = 'rgba(255,255,255,0.95)';
+        ctx.beginPath();
+        for (let i = 0; i < flakes.length; i++) {
+          const f = flakes[i];
+          f.x += f.vx * f.d;
+          f.y += f.vy * f.d;
+          f.vx += Math.sin((f.y + i) * 0.01) * 0.002;
+          if (f.y > height + 10) {
+            flakes[i] = createFlake();
+            flakes[i].y = -10;
+          }
+          ctx.moveTo(f.x, f.y);
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+        }
+        ctx.fill();
+      }
+
+      function animate() {
+        update();
+        animationId = requestAnimationFrame(animate);
+      }
+
+      window.__snowControl = {
+        start: function() {
+          if (!animationId) {
+            animate();
+          }
+        },
+        stop: function() {
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+            ctx.clearRect(0,0,width,height);
+          }
+        },
+        resize: function() {
+          resize();
+          initFlakes();
+        }
+      };
+    })();
+
+    function startSnow() {
+      if (window.__snowControl) {
+        window.__snowControl.resize();
+        window.__snowControl.start();
+      }
+    }
+    function stopSnow() {
+      if (window.__snowControl) {
+        window.__snowControl.stop();
+      }
+    }
+
+    // Optional: auto-enable in December
+    (function autoEnableForDecember() {
+      const now = new Date();
+      if (now.getMonth() === 11) {
+        enableChristmas(true);
+      }
+    })();
+
+    // --- Music controls with gentle fade ---
+    function fadeIn(el, target = 0.45, step = 0.02, interval = 60) {
+      el.volume = 0;
+      const playPromise = el.play();
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.catch(()=>{});
+      }
+      return new Promise(resolve => {
+        const t = setInterval(() => {
+          el.volume = Math.min(target, +(el.volume + step).toFixed(3));
+          if (el.volume >= target) { clearInterval(t); resolve(); }
+        }, interval);
+      });
+    }
+    function fadeOutAndPause(el, step = 0.02, interval = 60) {
+      return new Promise(resolve => {
+        const t = setInterval(() => {
+          el.volume = Math.max(0, +(el.volume - step).toFixed(3));
+          if (el.volume <= 0.001) {
+            clearInterval(t);
+            el.pause();
+            resolve();
+          }
+        }, interval);
+      });
+    }
+
+    if (MUSIC_SRC && MUSIC_SRC.trim() !== '') {
+      audio.src = MUSIC_SRC;
+    } else {
+      audio.removeAttribute('src');
+    }
+    audio.volume = parseFloat(musicVolume.value);
+
+    musicToggle.addEventListener('click', async () => {
+      if (!audio.src) {
+        const url = prompt('Paste a royalty-free MP3 URL or local path for holiday music');
+        if (!url) return;
+        audio.src = url;
+      }
+
+      const isPlaying = !audio.paused && !audio.ended;
+      if (!isPlaying) {
+        const targetVol = parseFloat(musicVolume.value);
+        musicToggle.setAttribute('aria-pressed','true');
+        musicToggle.textContent = '🔊';
+        await fadeIn(audio, targetVol, 0.02, 60);
+      } else {
+        musicToggle.setAttribute('aria-pressed','false');
+        musicToggle.textContent = '🎶';
+        await fadeOutAndPause(audio, 0.02, 60);
+      }
+    });
+
+    musicVolume.addEventListener('input', () => {
+      const v = parseFloat(musicVolume.value);
+      if (!audio.paused && !audio.ended) audio.volume = v;
+    });
+
+    function stopMusicIfPlaying() {
+      if (!audio.paused && !audio.ended) {
+        fadeOutAndPause(audio);
+        musicToggle.setAttribute('aria-pressed','false');
+        musicToggle.textContent = '🎶';
+      }
+    }
+
+    // integrate enableChristmas with music stop
+    const originalEnableChristmas = enableChristmas;
+    window.enableChristmas = function(enable) {
+      originalEnableChristmas(enable);
+      if (!enable) stopMusicIfPlaying();
+    };
+
+    musicToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); musicToggle.click(); }
+    });
   </script>
 </body>
 </html>
