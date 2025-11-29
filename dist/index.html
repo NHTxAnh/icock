@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ICock - Exclusive Cock Brand | Don't do it</title>
-
   <link rel="stylesheet" href="/output.css">
   <link rel="shortcut icon" href="/Images/icock-favicon.png" type="image/x-icon">
 
@@ -15,9 +14,12 @@
       --accent: #f59e0b;
       --page-bg: #ffffff;
       --header-bg: #f5f5f5;
+      --max-width: 1200px;
+      --gap: 20px;
+      --radius: 12px;
+      --touch-size: 44px;
     }
 
-    /* Christmas theme variables applied when .christmas is on html */
     html.christmas {
       --accent: #d62828;
       --brand-dark: #0b3a2e;
@@ -26,41 +28,44 @@
       --muted: #4b5563;
     }
 
-    /* Basic layout & typography */
+    *{box-sizing:border-box}
     body{
       font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       margin:0;
       color:#111;
       background: var(--page-bg);
       transition: background-color 240ms ease, color 240ms ease;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
     }
     a{color:inherit}
-    .container{max-width:1200px;margin:0 auto;padding:20px;}
+    .container{max-width:var(--max-width);margin:0 auto;padding:16px;}
     header{background:var(--header-bg);padding:10px 0;border-bottom:1px solid #e6e6e6;transition:background-color 240ms ease;position:relative}
     .brand{display:flex;align-items:center;gap:12px}
     .brand img{height:44px;width:auto}
-    .brand h1{font-size:20px;margin:0;font-weight:700}
+    .brand h1{font-size:18px;margin:0;font-weight:700}
     .slogan{font-size:12px;color:var(--muted)}
-    .hero{display:flex;gap:24px;align-items:center;padding:28px 0}
-    .hero-left{flex:1}
-    .hero-right{flex:1;display:flex;justify-content:center}
-    .product-card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(0,0,0,0.06);max-width:520px}
-    .product-image{width:100%;height:420px;object-fit:cover;border-radius:8px}
-    .swatches{display:flex;gap:10px;margin-top:12px}
-    .swatch{width:36px;height:36px;border-radius:9999px;border:2px solid rgba(0,0,0,0.06);cursor:pointer;display:inline-block;transition:transform 140ms ease, box-shadow 140ms ease}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:var(--gap);align-items:start;padding:28px 0}
+    .hero-left{min-width:0}
+    .hero-right{display:flex;justify-content:center}
+    .product-card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:0 6px 20px rgba(0,0,0,0.06);max-width:100%}
+    .product-image{width:100%;height:420px;object-fit:cover;border-radius:8px;display:block}
+    .swatches{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .swatch{width:44px;height:44px;border-radius:9999px;border:2px solid rgba(0,0,0,0.06);cursor:pointer;display:inline-block;transition:transform 140ms ease, box-shadow 140ms ease}
     .swatch.active{outline:3px solid rgba(0,0,0,0.12);transform:scale(1.05)}
     .swatch:focus{outline:3px solid rgba(0,0,0,0.18);transform:scale(1.03)}
-    .price-row{display:flex;gap:12px;margin-top:14px;align-items:center}
-    .price-btn{padding:10px 16px;border-radius:9999px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:#f3f4f6;position:relative;overflow:visible}
+    .price-row{display:flex;gap:12px;margin-top:14px;align-items:center;flex-wrap:wrap}
+    .price-btn{padding:10px 16px;border-radius:9999px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:#f3f4f6;position:relative;overflow:visible;min-height:var(--touch-size);display:inline-flex;align-items:center;gap:8px}
     .price-btn.selected{background:var(--accent);color:#000;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
-    .cta{display:flex;gap:12px;align-items:center;margin-top:18px}
-    .btn-primary{background:var(--brand-dark);color:#fff;padding:10px 18px;border-radius:9999px;border:none;cursor:pointer;transition:background-color 180ms ease}
+    .cta{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+    .btn-primary{background:var(--brand-dark);color:#fff;padding:10px 18px;border-radius:9999px;border:none;cursor:pointer;transition:background-color 180ms ease;min-height:var(--touch-size)}
     footer{background:#0b0b0b;color:#fff;padding:28px 0;margin-top:40px}
     .footer-grid{display:flex;gap:24px;flex-wrap:wrap}
     .footer-grid div{min-width:180px}
     .contact{font-size:14px;color:#f3f4f6}
 
-    /* modal */
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:999}
     .modal{background:#fff;border-radius:10px;padding:20px;max-width:520px;width:95%}
     .form-row{margin-bottom:12px}
@@ -68,7 +73,6 @@
     .small{font-size:13px;color:var(--muted)}
     .hidden{display:none}
 
-    /* christmas decorations */
     .header-decor {
       position:absolute;
       left:0;
@@ -83,7 +87,7 @@
     }
     .garland {
       width:100%;
-      max-width:1200px;
+      max-width:var(--max-width);
       height:56px;
       display:flex;
       align-items:center;
@@ -105,28 +109,6 @@
     .light.blue{background:#2b6cb0; box-shadow:0 0 8px rgba(43,108,176,0.6)}
     html.christmas .light {pointer-events:none; opacity:1}
 
-    /* small badge for toggle */
-    .theme-toggle {
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .theme-toggle button {
-      background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:9999px;cursor:pointer;
-    }
-    .theme-toggle button[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:transparent; }
-
-    /* snowfall canvas sits above page but below modals */
-    #snow-canvas {
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:800;
-      display:none;
-    }
-
-    /* santa hat */
     .santa-hat {
       position: absolute;
       top: -12px;
@@ -142,15 +124,43 @@
     .price-btn.selected .santa-hat { opacity: 1; transform: translateY(0) rotate(-12deg); }
     .santa-hat svg { width:100%; height:100%; display:block; }
 
-    /* music controls */
-    #music-toggle { background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:9999px;cursor:pointer; }
+    #music-toggle { background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:9999px;cursor:pointer;min-height:var(--touch-size) }
     #music-toggle[aria-pressed="true"] { background:var(--accent); color:#000; border-color:transparent; }
 
-    /* responsive */
-    @media(max-width:900px){
-      .hero{flex-direction:column}
+    /* snow canvas visible by default but hidden until enabled */
+    #snow-canvas { position:fixed; inset:0; pointer-events:none; z-index:800; display:none; }
+
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr 360px}
+      .product-image{height:360px}
+    }
+
+    @media (max-width:900px){
+      .container{padding:14px}
+      .hero{grid-template-columns:1fr;gap:18px}
+      .hero-right{order:2}
       .product-image{height:320px}
-      .garland{padding-left:12px;padding-right:12px}
+      .price-row{flex-direction:column;align-items:stretch}
+      .price-row > div { display:flex; gap:8px; width:100%; }
+      .price-btn{flex:1; justify-content:center; width:100%;}
+      .cta{flex-direction:column;align-items:stretch}
+      .btn-primary{width:100%}
+      .theme-toggle { margin-top:8px; }
+      .garland { display:none; } /* hide decorative garland on small screens */
+      /* keep canvas available on mobile; JS will adapt intensity */
+      #snow-canvas { display:block; }
+    }
+
+    @media (max-width:480px){
+      :root{ --gap:12px; }
+      .brand img{height:36px}
+      .brand h1{font-size:16px}
+      .product-image{height:240px}
+      .swatch{width:40px;height:40px}
+      .santa-hat{width:30px;height:30px;top:-10px;right:-10px}
+      .small{font-size:12px}
+      .input, .select, textarea {font-size:13px;padding:10px}
+      .price-btn{padding:12px}
     }
   </style>
 </head>
@@ -161,13 +171,13 @@
     </div>
 
     <div class="container brand" style="position:relative;z-index:6">
-      <img src="/Images/icock-logo-wide.png" alt="ICock logo">
-      <div>
+      <img src="/Images/icock-logo-wide.png" alt="ICock logo" loading="lazy">
+      <div style="min-width:0">
         <h1>ICock - Exclusive Cock Brand</h1>
         <div class="slogan">Don't do it</div>
       </div>
 
-      <div class="theme-toggle" style="margin-left:16px">
+      <div class="theme-toggle" style="margin-left:auto;align-items:center">
         <label class="small" style="margin-right:6px">Festive</label>
         <button id="christmas-toggle" aria-pressed="false" title="Toggle Christmas theme">🎄</button>
 
@@ -188,8 +198,8 @@
         </p>
 
         <div class="product-card" aria-label="iCock Classic product card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px">
+            <div style="min-width:0">
               <div style="font-weight:700">iCock Classic</div>
               <div class="small">ICock - Exclusive Cock Brand</div>
             </div>
@@ -199,7 +209,7 @@
             </div>
           </div>
 
-          <img id="product-image" class="product-image" src="/Images/icock-tim.png" alt="iCock slipper — tím">
+          <img id="product-image" class="product-image" src="/Images/icock-tim.png" alt="iCock slipper — tím" loading="lazy">
 
           <div style="margin-top:12px">
             <div class="small" style="margin-bottom:8px">Colors</div>
@@ -214,8 +224,8 @@
           </div>
 
           <div class="price-row" aria-label="Pricing options" style="margin-top:14px">
-            <div class="small">Choose option</div>
-            <div style="display:flex;gap:8px;margin-left:8px">
+            <div class="small" style="min-width:80px">Choose option</div>
+            <div style="display:flex;gap:8px;margin-left:8px;flex:1;flex-wrap:wrap">
               <button type="button" class="price-btn" data-tier="normal" aria-pressed="false">
                 Normal — <strong>19k</strong>
                 <span class="santa-hat" aria-hidden="true">
@@ -264,10 +274,10 @@
           <div style="margin-top:18px">
             <h4 style="margin:0 0 8px 0">Quick gallery</h4>
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
-              <img src="/Images/icock-tim.png" alt="icock tím" style="width:100%;height:110px;object-fit:cover;border-radius:6px">
-              <img src="/Images/icock-xanh-bien.png" alt="icock xanh biển" style="width:100%;height:110px;object-fit:cover;border-radius:6px">
-              <img src="/Images/icock-vang.png" alt="icock vàng" style="width:100%;height:110px;object-fit:cover;border-radius:6px">
-              <img src="/Images/icock-do.png" alt="icock đỏ" style="width:100%;height:110px;object-fit:cover;border-radius:6px">
+              <img src="/Images/icock-tim.png" alt="icock tím" style="width:100%;height:110px;object-fit:cover;border-radius:6px" loading="lazy">
+              <img src="/Images/icock-xanh-bien.png" alt="icock xanh biển" style="width:100%;height:110px;object-fit:cover;border-radius:6px" loading="lazy">
+              <img src="/Images/icock-vang.png" alt="icock vàng" style="width:100%;height:110px;object-fit:cover;border-radius:6px" loading="lazy">
+              <img src="/Images/icock-do.png" alt="icock đỏ" style="width:100%;height:110px;object-fit:cover;border-radius:6px" loading="lazy">
             </div>
           </div>
         </div>
@@ -276,29 +286,29 @@
 
     <section style="margin-top:36px">
       <h3 style="margin-bottom:12px">All colors</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px">
         <figure style="background:#fff;padding:12px;border-radius:8px;text-align:center">
-          <img src="/Images/icock-tim.png" alt="icock tím" style="width:100%;height:140px;object-fit:cover;border-radius:6px">
+          <img src="/Images/icock-tim.png" alt="icock tím" style="width:100%;height:140px;object-fit:cover;border-radius:6px" loading="lazy">
           <figcaption style="margin-top:8px;font-weight:600">Tím</figcaption>
         </figure>
         <figure style="background:#fff;padding:12px;border-radius:8px;text-align:center">
-          <img src="/Images/icock-xanh-bien.png" alt="icock xanh biển" style="width:100%;height:140px;object-fit:cover;border-radius:6px">
+          <img src="/Images/icock-xanh-bien.png" alt="icock xanh biển" style="width:100%;height:140px;object-fit:cover;border-radius:6px" loading="lazy">
           <figcaption style="margin-top:8px;font-weight:600">Xanh Biển</figcaption>
         </figure>
         <figure style="background:#fff;padding:12px;border-radius:8px;text-align:center">
-          <img src="/Images/icock-vang.png" alt="icock vàng" style="width:100%;height:140px;object-fit:cover;border-radius:6px">
+          <img src="/Images/icock-vang.png" alt="icock vàng" style="width:100%;height:140px;object-fit:cover;border-radius:6px" loading="lazy">
           <figcaption style="margin-top:8px;font-weight:600">Vàng</figcaption>
         </figure>
         <figure style="background:#fff;padding:12px;border-radius:8px;text-align:center">
-          <img src="/Images/icock-do.png" alt="icock đỏ" style="width:100%;height:140px;object-fit:cover;border-radius:6px">
+          <img src="/Images/icock-do.png" alt="icock đỏ" style="width:100%;height:140px;object-fit:cover;border-radius:6px" loading="lazy">
           <figcaption style="margin-top:8px;font-weight:600">Đỏ</figcaption>
         </figure>
         <figure style="background:#fff;padding:12px;border-radius:8px;text-align:center">
-          <img src="/Images/icock-hong.png" alt="icock hồng" style="width:100%;height:140px;object-fit:cover;border-radius:6px">
+          <img src="/Images/icock-hong.png" alt="icock hồng" style="width:100%;height:140px;object-fit:cover;border-radius:6px" loading="lazy">
           <figcaption style="margin-top:8px;font-weight:600">Hồng</figcaption>
         </figure>
         <figure style="background:#fff;padding:12px;border-radius:8px;text-align:center">
-          <img src="/Images/icock-xanh-la.png" alt="icock xanh lá" style="width:100%;height:140px;object-fit:cover;border-radius:6px">
+          <img src="/Images/icock-xanh-la.png" alt="icock xanh lá" style="width:100%;height:140px;object-fit:cover;border-radius:6px" loading="lazy">
           <figcaption style="margin-top:8px;font-weight:600">Xanh lá</figcaption>
         </figure>
       </div>
@@ -358,7 +368,7 @@
   <footer>
     <div class="container" style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap">
       <div>
-        <img src="/Images/icock-logo-wide.png" alt="ICock" style="height:36px">
+        <img src="/Images/icock-logo-wide.png" alt="ICock" style="height:36px" loading="lazy">
         <p style="color:#cfcfcf;margin-top:8px">ICock - Exclusive Cock Brand</p>
         <p style="color:#cfcfcf;margin-top:6px">Slogan: <strong>Don't do it</strong></p>
       </div>
@@ -399,32 +409,10 @@
 
   <script>
     // --- configuration ---
-    const FORM_ENDPOINT = 'https://formspree.io/f/xdkrwkoq'; // leave empty to use mailto fallback
-    const MUSIC_SRC = '/hello.mp3'; // paste a royalty-free MP3 URL or local path here if you have one
+    const FORM_ENDPOINT = 'https://formspree.io/f/xdkrwkoq';
+    const MUSIC_SRC = '/hello.mp3'; // set your file or URL
 
-    // --- color/image mapping and theme palette ---
-    const colorToFile = {
-      'tim': 'icock-tim.png',
-      'xanh-bien': 'icock-xanh-bien.png',
-      'vang': 'icock-vang.png',
-      'do': 'icock-do.png',
-      'hong': 'icock-hong.png',
-      'xanh-la': 'icock-xanh-la.png'
-    };
-
-    const colorToHex = {
-      'tim': { accent: '#6B46C1', brand: '#2b0f3a', header: '#f7f3fb', page: '#fffafc' },
-      'xanh-bien': { accent: '#0EA5A4', brand: '#064e4b', header: '#f2fbfb', page: '#f7fffe' },
-      'vang': { accent: '#F59E0B', brand: '#4a2f00', header: '#fff9f0', page: '#fffdf6' },
-      'do': { accent: '#EF4444', brand: '#4a0b0b', header: '#fff6f6', page: '#fff7f7' },
-      'hong': { accent: '#EC4899', brand: '#3a0b2a', header: '#fff6fb', page: '#fff7fb' },
-      'xanh-la': { accent: '#10B981', brand: '#073b2b', header: '#f3fff8', page: '#f7fffb' }
-    };
-
-    // --- state & DOM refs ---
-    let selectedColor = 'tim';
-    let selectedTier = 'normal';
-
+    // --- DOM refs ---
     const root = document.documentElement;
     const imageEl = document.getElementById('product-image');
     const priceDisplay = document.getElementById('price-display');
@@ -447,25 +435,44 @@
     const musicToggle = document.getElementById('music-toggle');
     const musicVolume = document.getElementById('music-volume');
 
+    // --- state ---
+    let selectedColor = 'tim';
+    let selectedTier = 'normal';
+
+    // --- color mapping ---
+    const colorToFile = {
+      'tim': 'icock-tim.png',
+      'xanh-bien': 'icock-xanh-bien.png',
+      'vang': 'icock-vang.png',
+      'do': 'icock-do.png',
+      'hong': 'icock-hong.png',
+      'xanh-la': 'icock-xanh-la.png'
+    };
+    const colorToHex = {
+      'tim': { accent: '#6B46C1', brand: '#2b0f3a', header: '#f7f3fb', page: '#fffafc' },
+      'xanh-bien': { accent: '#0EA5A4', brand: '#064e4b', header: '#f2fbfb', page: '#f7fffe' },
+      'vang': { accent: '#F59E0B', brand: '#4a2f00', header: '#fff9f0', page: '#fffdf6' },
+      'do': { accent: '#EF4444', brand: '#4a0b0b', header: '#fff6f6', page: '#fff7f7' },
+      'hong': { accent: '#EC4899', brand: '#3a0b2a', header: '#fff6fb', page: '#fff7fb' },
+      'xanh-la': { accent: '#10B981', brand: '#073b2b', header: '#f3fff8', page: '#f7fffb' }
+    };
+
     // --- helpers ---
     function applyColor(colorKey) {
       selectedColor = colorKey || 'tim';
       const file = colorToFile[selectedColor] || colorToFile['tim'];
       imageEl.src = '/Images/' + file;
       imageEl.alt = 'iCock slipper — ' + selectedColor;
-
       const hex = colorToHex[selectedColor] || colorToHex['tim'];
       root.style.setProperty('--accent', hex.accent);
       root.style.setProperty('--brand-dark', hex.brand);
       root.style.setProperty('--header-bg', hex.header);
       root.style.setProperty('--page-bg', hex.page);
-
       swatches.forEach(s => {
         const active = s.dataset.color === selectedColor;
         s.classList.toggle('active', active);
         s.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
-
       if (formColor) formColor.value = selectedColor;
     }
 
@@ -482,22 +489,20 @@
       if (formTier) formTier.value = selectedTier;
     }
 
-    // --- attach handlers ---
+    // attach handlers
     swatches.forEach(btn => {
       btn.addEventListener('click', () => applyColor(btn.dataset.color));
       btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }});
     });
-
     priceBtns.forEach(btn => {
       btn.addEventListener('click', () => applyTier(btn.dataset.tier));
       btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }});
     });
 
-    // initialize defaults
     applyColor(selectedColor);
     applyTier(selectedTier);
 
-    // --- modal open/close ---
+    // modal
     function openModal() {
       modalBackdrop.style.display = 'flex';
       modalBackdrop.setAttribute('aria-hidden','false');
@@ -515,18 +520,16 @@
     cancelOrderBtn.addEventListener('click', closeModal);
     modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeModal(); });
 
-    // --- form submit handler ---
+    // form submit
     orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       formStatus.style.display = 'none';
-
       const product = orderForm.product.value || 'iCock Classic';
       const color = formColor.value || selectedColor;
       const tier = formTier.value || selectedTier;
       const price = tier === 'premium' ? '25k' : '19k';
       const email = buyerEmail.value && buyerEmail.value.trim();
       const notes = orderForm.notes.value || '';
-
       if (!email) {
         formStatus.style.display = 'block';
         formStatus.style.color = 'red';
@@ -534,12 +537,10 @@
         buyerEmail.focus();
         return;
       }
-
       const payload = {
         _subject: `New order: ${product} — ${color} — ${tier}`,
         product, color, tier, price, buyer_email: email, notes, timestamp: new Date().toISOString()
       };
-
       if (FORM_ENDPOINT && FORM_ENDPOINT.trim() !== '') {
         try {
           formStatus.style.display = 'block';
@@ -566,7 +567,6 @@
         }
         return;
       }
-
       const subject = payload._subject;
       const bodyLines = [
         `Product: ${product}`,
@@ -584,10 +584,10 @@
       setTimeout(closeModal, 600);
     });
 
-    // set year
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- Christmas toggle and decorations ---
+    // garland
     function buildGarlandLights(count = 28) {
       garlandEl.innerHTML = '';
       const colors = ['red','green','yellow','blue'];
@@ -601,11 +601,16 @@
     }
     buildGarlandLights();
 
+    // christmas toggle (now starts snow on all viewports; snow adapts intensity)
     function enableChristmas(enable) {
       if (enable) {
         document.documentElement.classList.add('christmas');
         christmasToggle.setAttribute('aria-pressed','true');
+        // show canvas and start snow (snow implementation adapts to viewport)
         snowCanvas.style.display = 'block';
+        if (window.__snowControl && typeof window.__snowControl.resize === 'function') {
+          window.__snowControl.resize();
+        }
         startSnow();
       } else {
         document.documentElement.classList.remove('christmas');
@@ -614,31 +619,40 @@
         stopSnow();
         stopMusicIfPlaying();
       }
+      try { localStorage.setItem('icock.christmas', enable ? '1' : '0'); } catch(e){}
     }
-
     christmasToggle.addEventListener('click', () => {
       const pressed = christmasToggle.getAttribute('aria-pressed') === 'true';
       enableChristmas(!pressed);
     });
-
     christmasToggle.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); christmasToggle.click(); }
     });
 
-    // --- Snowfall implementation using canvas ---
+    // --- Snowfall (adaptive to mobile) ---
     (function setupSnow() {
       const ctx = snowCanvas.getContext && snowCanvas.getContext('2d');
       if (!ctx) return;
-
       let flakes = [];
       let width = 0;
       let height = 0;
-      const maxFlakes = 160;
+      let maxFlakes = 60;
       let animationId = null;
 
       function resize() {
         width = snowCanvas.width = window.innerWidth;
         height = snowCanvas.height = window.innerHeight;
+        // adapt intensity by width
+        if (width <= 360) {
+          maxFlakes = Math.max(18, Math.floor(width / 20));
+        } else if (width <= 480) {
+          maxFlakes = Math.max(24, Math.floor(width / 16));
+        } else if (width <= 900) {
+          maxFlakes = Math.max(36, Math.floor(width / 10));
+        } else {
+          maxFlakes = Math.max(80, Math.floor(width / 8));
+        }
+        initFlakes();
       }
       window.addEventListener('resize', resize);
       resize();
@@ -647,14 +661,13 @@
         return {
           x: Math.random() * width,
           y: Math.random() * -height,
-          r: Math.random() * 3 + 1,
+          r: Math.random() * (Math.random() < 0.6 ? 2.2 : 3.6) + 0.6,
           d: Math.random() * 1.5 + 0.5,
           vx: (Math.random() * 0.6) - 0.3,
-          vy: Math.random() * 1 + 0.3,
-          opacity: Math.random() * 0.8 + 0.2
+          vy: Math.random() * 1 + 0.2,
+          opacity: Math.random() * 0.7 + 0.15
         };
       }
-
       function initFlakes() {
         flakes = [];
         for (let i = 0; i < maxFlakes; i++) flakes.push(createFlake());
@@ -675,21 +688,19 @@
             flakes[i].y = -10;
           }
           ctx.moveTo(f.x, f.y);
+          ctx.globalAlpha = f.opacity;
           ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
         }
+        ctx.globalAlpha = 1;
         ctx.fill();
       }
-
       function animate() {
         update();
         animationId = requestAnimationFrame(animate);
       }
-
       window.__snowControl = {
         start: function() {
-          if (!animationId) {
-            animate();
-          }
+          if (!animationId) animate();
         },
         stop: function() {
           if (animationId) {
@@ -698,10 +709,7 @@
             ctx.clearRect(0,0,width,height);
           }
         },
-        resize: function() {
-          resize();
-          initFlakes();
-        }
+        resize: function() { resize(); }
       };
     })();
 
@@ -712,26 +720,14 @@
       }
     }
     function stopSnow() {
-      if (window.__snowControl) {
-        window.__snowControl.stop();
-      }
+      if (window.__snowControl) window.__snowControl.stop();
     }
-
-    // Optional: auto-enable in December
-    (function autoEnableForDecember() {
-      const now = new Date();
-      if (now.getMonth() === 11) {
-        enableChristmas(true);
-      }
-    })();
 
     // --- Music controls with gentle fade ---
     function fadeIn(el, target = 0.45, step = 0.02, interval = 60) {
       el.volume = 0;
       const playPromise = el.play();
-      if (playPromise && typeof playPromise.then === 'function') {
-        playPromise.catch(()=>{});
-      }
+      if (playPromise && typeof playPromise.then === 'function') playPromise.catch(()=>{});
       return new Promise(resolve => {
         const t = setInterval(() => {
           el.volume = Math.min(target, +(el.volume + step).toFixed(3));
@@ -752,12 +748,9 @@
       });
     }
 
-    if (MUSIC_SRC && MUSIC_SRC.trim() !== '') {
-      audio.src = MUSIC_SRC;
-    } else {
-      audio.removeAttribute('src');
-    }
-    audio.volume = parseFloat(musicVolume.value);
+    if (MUSIC_SRC && MUSIC_SRC.trim() !== '') audio.src = MUSIC_SRC;
+    else audio.removeAttribute('src');
+    audio.volume = parseFloat(musicVolume.value || 0.45);
 
     musicToggle.addEventListener('click', async () => {
       if (!audio.src) {
@@ -765,17 +758,17 @@
         if (!url) return;
         audio.src = url;
       }
-
       const isPlaying = !audio.paused && !audio.ended;
       if (!isPlaying) {
         const targetVol = parseFloat(musicVolume.value);
         musicToggle.setAttribute('aria-pressed','true');
         musicToggle.textContent = '🔊';
-        await fadeIn(audio, targetVol, 0.02, 60);
+        try { await fadeIn(audio, targetVol, 0.02, 60); localStorage.setItem('icock.music','1'); } catch(e){ musicToggle.setAttribute('aria-pressed','false'); musicToggle.textContent='🎶'; localStorage.setItem('icock.music','0'); }
       } else {
         musicToggle.setAttribute('aria-pressed','false');
         musicToggle.textContent = '🎶';
         await fadeOutAndPause(audio, 0.02, 60);
+        try { localStorage.setItem('icock.music','0'); } catch(e){}
       }
     });
 
@@ -792,13 +785,31 @@
       }
     }
 
-    // integrate enableChristmas with music stop
-    const originalEnableChristmas = enableChristmas;
-    window.enableChristmas = function(enable) {
-      originalEnableChristmas(enable);
-      if (!enable) stopMusicIfPlaying();
-    };
+    // --- Auto-enable snow by default for all visitors (persisted) ---
+    try {
+      // Force enable on load and persist preference
+      enableChristmas(true);
+      try { localStorage.setItem('icock.christmas', '1'); } catch(e){}
+    } catch (err) {
+      // fallback: ensure snow starts after load if functions not ready yet
+      window.addEventListener('load', () => {
+        try { enableChristmas(true); localStorage.setItem('icock.christmas', '1'); } catch(e){}
+      });
+    }
 
+    // Try to autoplay music if user previously enabled it (graceful fallback)
+    try {
+      const musicSaved = localStorage.getItem('icock.music');
+      if (musicSaved === '1' && audio.src) {
+        (async () => {
+          musicToggle.setAttribute('aria-pressed','true');
+          musicToggle.textContent = '🔊';
+          try { await fadeIn(audio, parseFloat(musicVolume.value || 0.45), 0.02, 60); } catch(e){ musicToggle.setAttribute('aria-pressed','false'); musicToggle.textContent='🎶'; }
+        })();
+      }
+    } catch(e){}
+
+    // keyboard accessibility for music
     musicToggle.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); musicToggle.click(); }
     });
